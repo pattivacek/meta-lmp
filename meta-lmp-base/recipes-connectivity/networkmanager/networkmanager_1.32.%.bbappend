@@ -6,6 +6,6 @@ DEPENDS += "libedit"
 # Disable firewalld-zone by default, but allow via packageconfig
 PACKAGECONFIG[firewalld-zone] = "--enable-firewalld-zone,--disable-firewalld-zone"
 
-SRC_URI += " \
-	file://0001-Add-client-build-support-for-editline-libedit.patch \
-"
+#SRC_URI += " \
+#	file://0001-Add-client-build-support-for-editline-libedit.patch \
+#"
