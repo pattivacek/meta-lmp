@@ -22,7 +22,7 @@ S = "${WORKDIR}/git"
 
 inherit cmake
 
-RDEPENDS_${PN} += "openssl-bin aktualizr-lite"
+RDEPENDS:${PN} += "openssl-bin aktualizr-lite"
 
 EXTRA_OECMAKE += "\
     -DGIT_COMMIT=${SRCREV} \

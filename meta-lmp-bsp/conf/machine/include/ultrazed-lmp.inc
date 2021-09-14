@@ -15,10 +15,10 @@ EXTRA_IMAGEDEPENDS += "libyaml-native python3-cython-native python3-pyyaml-nativ
 
 PREFERRED_PROVIDER_u-boot-fw-utils = "libubootenv"
 PREFERRED_RPROVIDER_u-boot-fw-utils = "libubootenv"
-SOTA_CLIENT_FEATURES_append = " ubootenv"
-WKS_FILE_DEPENDS_append = " u-boot-default-script"
+SOTA_CLIENT_FEATURES:append = " ubootenv"
+WKS_FILE_DEPENDS:append = " u-boot-default-script"
 PREFERRED_PROVIDER_u-boot-default-script = "u-boot-base-scr"
-PREFERRED_PROVIDER_u-boot-default-script_sota = "u-boot-ostree-scr-fit"
+PREFERRED_PROVIDER_u-boot-default-script:sota = "u-boot-ostree-scr-fit"
 
 SPL_BINARY ?= "spl/boot.bin"
 UBOOT_MACHINE ?= "xilinx_zynqmp_virt_defconfig"
@@ -35,8 +35,8 @@ ATF_MEM_SIZE = "0x1affe"
 SERIAL_CONSOLES ?= "115200;ttyPS0"
 
 OSTREE_BOOTLOADER ?= "${@bb.utils.contains('MACHINE_FEATURES', 'ebbr', 'grub', 'u-boot', d)}"
-KERNEL_IMAGETYPE_sota ?= "${@bb.utils.contains('MACHINE_FEATURES', 'ebbr', 'Image', 'fitImage', d)}"
-KERNEL_CLASSES_sota ?= "${@bb.utils.contains('MACHINE_FEATURES', 'ebbr', '', ' kernel-lmp-fitimage ', d)}"
+KERNEL_IMAGETYPE:sota ?= "${@bb.utils.contains('MACHINE_FEATURES', 'ebbr', 'Image', 'fitImage', d)}"
+KERNEL_CLASSES:sota ?= "${@bb.utils.contains('MACHINE_FEATURES', 'ebbr', '', ' kernel-lmp-fitimage ', d)}"
 OSTREE_KERNEL_ARGS ?= "console=ttyPS0,115200 ${OSTREE_KERNEL_ARGS_COMMON}"
 PREFERRED_PROVIDER_virtual/dtb ?= "device-tree"
 PREFERRED_PROVIDER_virtual/trusted-firmware-a ?= "arm-trusted-firmware"
@@ -50,10 +50,10 @@ EXTRA_IMAGEDEPENDS += " \
 
 # Used to create a wic image to boot from emmc
 WKS_FILE = "sdimage-bootpart.wks"
-WKS_FILE_sota = "${@bb.utils.contains('MACHINE_FEATURES', 'ebbr', 'sdimage-mbr-efi-sota.wks', 'sdimage-sota.wks', d)}"
+WKS_FILE:sota = "${@bb.utils.contains('MACHINE_FEATURES', 'ebbr', 'sdimage-mbr-efi-sota.wks', 'sdimage-sota.wks', d)}"
 IMAGE_BOOT_FILES = "${@get_default_image_boot_files(d)} boot.bin boot.scr uEnv.txt system-top.dtb bitstream.bit.bin"
-IMAGE_BOOT_FILES_sota = "boot.bin u-boot.itb boot.itb"
-IMAGE_BOOT_FILES_sota += "${@bb.utils.contains('MACHINE_FEATURES', 'ebbr', 'system-top.dtb', '', d)}"
+IMAGE_BOOT_FILES:sota = "boot.bin u-boot.itb boot.itb"
+IMAGE_BOOT_FILES:sota += "${@bb.utils.contains('MACHINE_FEATURES', 'ebbr', 'system-top.dtb', '', d)}"
 
 # Not building for QEMU standard Xinix build
-EXTRA_IMAGEDEPENDS_remove = "qemu-devicetrees"
+EXTRA_IMAGEDEPENDS:remove = "qemu-devicetrees"
