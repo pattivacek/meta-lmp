@@ -1,7 +1,7 @@
-From 55eb0cdc78a1d877d1940bdf5db22bee15b046ee Mon Sep 17 00:00:00 2001
+From 92fb9a21a8e611c112b8e318988e920db4e79bce Mon Sep 17 00:00:00 2001
 From: Igor Opaniuk <igor.opaniuk@foundries.io>
 Date: Tue, 25 May 2021 16:18:16 +0300
-Subject: [PATCH] plat: imx8mq: SiP call for secondary boot
+Subject: [PATCH 2/2] plat: imx8mq: SiP call for secondary boot
 
 Signed-off-by: Igor Opaniuk <igor.opaniuk@foundries.io>
 ---
@@ -32,7 +32,7 @@ index dd18b35a0..0af9d2ec6 100644
  		return SMC_UNK;
  
 diff --git a/plat/imx/imx8m/imx8mq/include/platform_def.h b/plat/imx/imx8m/imx8mq/include/platform_def.h
-index 6d838fc3c..3c9c87894 100644
+index 4b4136ca8..db44af2d2 100644
 --- a/plat/imx/imx8m/imx8mq/include/platform_def.h
 +++ b/plat/imx/imx8m/imx8mq/include/platform_def.h
 @@ -118,9 +118,11 @@

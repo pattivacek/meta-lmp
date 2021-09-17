@@ -1,7 +1,7 @@
-From 3050d02b31aec3b03215f96bbdfda3d529b4ecf4 Mon Sep 17 00:00:00 2001
-From: Igor Opaniuk <igor.opaniuk@foundries.io>
-Date: Thu, 3 Jun 2021 15:00:26 +0300
-Subject: [PATCH] feat(plat/imx8m): add system_reset2 implementation
+From eb7e7e047f04a528d462d6f4e90de9c0f42b7f83 Mon Sep 17 00:00:00 2001
+From: Daiane Angolini <daiane.angolini@foundries.io>
+Date: Thu, 16 Sep 2021 21:33:10 +0000
+Subject: [PATCH 1/2] feat(plat/imx8m): add system_reset2 implementation
 
 Add imx_system_reset2 which extends existing SYSTEM_RESET. It provides
 architectural reset definitions and vendor-specific resets.
@@ -13,17 +13,16 @@ each flag used.
 Change-Id: Ia7348c32c385f1c61f8085776e81dd1e38ddda5c
 Signed-off-by: Igor Opaniuk <igor.opaniuk@foundries.io>
 ---
- plat/imx/imx8m/imx8m_psci_common.c  | 65 +++++++++++++++++++++++++----
+ plat/imx/imx8m/imx8m_psci_common.c  | 64 +++++++++++++++++++++++++----
  plat/imx/imx8m/imx8mm/imx8mm_psci.c |  1 +
  plat/imx/imx8m/imx8mq/imx8mq_psci.c |  1 +
- plat/imx/imx8m/include/imx8m_psci.h |  1 +
- 4 files changed, 59 insertions(+), 9 deletions(-)
+ 3 files changed, 57 insertions(+), 9 deletions(-)
 
 diff --git a/plat/imx/imx8m/imx8m_psci_common.c b/plat/imx/imx8m/imx8m_psci_common.c
-index 452958cec..556662695 100644
+index ca0a5fc3d..c0abc69e8 100644
 --- a/plat/imx/imx8m/imx8m_psci_common.c
 +++ b/plat/imx/imx8m/imx8m_psci_common.c
-@@ -168,20 +168,46 @@ void imx_get_sys_suspend_power_state(psci_power_state_t *req_state)
+@@ -178,20 +178,45 @@ void imx_get_sys_suspend_power_state(psci_power_state_t *req_state)
  		req_state->pwr_domain_state[i] = PLAT_STOP_OFF_STATE;
  }
  
@@ -75,11 +74,10 @@ index 452958cec..556662695 100644
 +		 */
 +		val |= WDOG_WCR_SRE | WDOG_WCR_WDA;
 +	}
-+
  	mmio_write_16(wdog_base, val);
  
  	mmio_write_16(wdog_base + WDOG_WSR, 0x5555);
-@@ -190,6 +216,27 @@ void __dead2 imx_system_reset(void)
+@@ -200,6 +225,27 @@ void __dead2 imx_system_reset(void)
  		;
  }
  
@@ -131,17 +129,6 @@ index e6679261c..21c252738 100644
  	.system_off = imx_system_off,
  };
  
-diff --git a/plat/imx/imx8m/include/imx8m_psci.h b/plat/imx/imx8m/include/imx8m_psci.h
-index 496640383..65d1a9fb6 100644
---- a/plat/imx/imx8m/include/imx8m_psci.h
-+++ b/plat/imx/imx8m/include/imx8m_psci.h
-@@ -23,5 +23,6 @@ void imx_get_sys_suspend_power_state(psci_power_state_t *req_state);
- void __dead2 imx_system_reset(void);
- void __dead2 imx_system_off(void);
- void __dead2 imx_pwr_domain_pwr_down_wfi(const psci_power_state_t *target_state);
-+int imx_system_reset2(int is_vendor, int reset_type, u_register_t cookie);
- 
- #endif /* IMX8M_PSCI_H */
 -- 
 2.25.1
 
